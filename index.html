@@ -1,0 +1,321 @@
+<!-- Styles -->
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+</style>
+
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+<!-- Chart code -->
+<script>
+am5.ready(function() {
+
+// Data
+var allData = {
+    "1966":{  "日本":40424, "韓國":1571,  "越南":824, "泰國":2842,  "馬來西亞":4465,  "新加坡":0,  "菲律賓":6231, "汶萊":0, "印尼":0},
+ "1967":{   "日本":56677, "韓國":2149,  "越南":1045,  "泰國":3782,  "馬來西亞":5290,  "新加坡":0,  "菲律賓":9345, "汶萊":0, "印尼":0},
+ "1968":{   "日本":75069, "韓國":3822,  "越南":3246,  "泰國":6364,  "馬來西亞":6101,  "新加坡":0,  "菲律賓":11269,  "汶萊":0, "印尼":0},
+ "1969":{   "日本":106239,  "韓國":3216,  "越南":2741,  "泰國":5913,  "馬來西亞":7634,  "新加坡":0,  "菲律賓":12351,  "汶萊":0, "印尼":0},
+ "1970":{   "日本":148088,  "韓國":3387,  "越南":3720,  "泰國":6533,  "馬來西亞":7512,  "新加坡":0,  "菲律賓":11881,  "汶萊":0, "印尼":0},
+ "1971":{   "日本":181885,  "韓國":4129,  "越南":1977,  "泰國":9718,  "馬來西亞":10655, "新加坡":0,  "菲律賓":14767,  "汶萊":0, "印尼":0},
+ "1972":{   "日本":263396,  "韓國":5495,  "越南":1855,  "泰國":8141,  "馬來西亞":8910,  "新加坡":0,  "菲律賓":12517,  "汶萊":0, "印尼":0},
+ "1973":{   "日本":280634,  "韓國":5068,  "越南":2119,  "泰國":8966,  "馬來西亞":10685, "新加坡":0,  "菲律賓":8858, "汶萊":0, "印尼":0},
+ "1974":{   "日本":437821,  "韓國":5466,  "越南":2162,  "泰國":11413, "馬來西亞":18441, "新加坡":0,  "菲律賓":5520, "汶萊":0, "印尼":0},
+ "1975":{   "日本":438911,  "韓國":6780,  "越南":2037,  "泰國":12438, "馬來西亞":20403, "新加坡":0,  "菲律賓":6974, "汶萊":0, "印尼":0},
+ "1976":{   "日本":0, "韓國":0, "越南":0, "泰國":0, "馬來西亞":0, "新加坡":0,  "菲律賓":0,  "汶萊":0, "印尼":0},
+ "1977":{   "日本":516449,  "韓國":7227,  "越南":0, "泰國":13681, "馬來西亞":31129, "新加坡":32301,  "菲律賓":6660, "汶萊":0, "印尼":18552},
+ "1978":{   "日本":561166,  "韓國":9686,  "越南":0, "泰國":17040, "馬來西亞":36738, "新加坡":33762,  "菲律賓":9437, "汶萊":0, "印尼":23441},
+ "1979":{   "日本":624868,  "韓國":11610, "越南":0, "泰國":18117, "馬來西亞":42170, "新加坡":36347,  "菲律賓":16539,  "汶萊":0, "印尼":27471},
+ "1980":{   "日本":693671,  "韓國":13790, "越南":0, "泰國":18888, "馬來西亞":52136, "新加坡":40851,  "菲律賓":18184,  "汶萊":0, "印尼":24861},
+ "1981":{   "日本":654413,  "韓國":15333, "越南":0, "泰國":21729, "馬來西亞":64781, "新加坡":43448,  "菲律賓":20227,  "汶萊":0, "印尼":30836},
+ "1982":{   "日本":592682,  "韓國":22721, "越南":0, "泰國":23130, "馬來西亞":70903, "新加坡":51670,  "菲律賓":25617,  "汶萊":0, "印尼":37847},
+ "1983":{   "日本":575686,  "韓國":35052, "越南":0, "泰國":24592, "馬來西亞":65930, "新加坡":52224,  "菲律賓":25182,  "汶萊":0, "印尼":36877},
+ "1984":{   "日本":595042,  "韓國":35058, "越南":0, "泰國":27748, "馬來西亞":73368, "新加坡":55716,  "菲律賓":24776,  "汶萊":0, "印尼":32249},
+ "1985":{   "日本":632481,  "韓國":31642, "越南":0, "泰國":23365, "馬來西亞":76502, "新加坡":57861,  "菲律賓":21999,  "汶萊":0, "印尼":30007},
+ "1986":{   "日本":615584,  "韓國":32614, "越南":0, "泰國":19430, "馬來西亞":69183, "新加坡":47436,  "菲律賓":24423,  "汶萊":0, "印尼":27639},
+ "1987":{   "日本":696686,  "韓國":32191, "越南":0, "泰國":30139, "馬來西亞":63375, "新加坡":50245,  "菲律賓":27024,  "汶萊":0, "印尼":29637},
+ "1988":{   "日本":807736,  "韓國":41551, "越南":0, "泰國":27286, "馬來西亞":67886, "新加坡":51155,  "菲律賓":33204,  "汶萊":0, "印尼":26970},
+ "1989":{   "日本":917161,  "韓國":87181, "越南":0, "泰國":23587, "馬來西亞":89190, "新加坡":56066,  "菲律賓":34671,  "汶萊":0, "印尼":27289},
+ "1990":{   "日本":962179,  "韓國":138608,  "越南":0, "泰國":21281, "馬來西亞":66639, "新加坡":54274,  "菲律賓":29724,  "汶萊":0, "印尼":27327},
+ "1991":{   "日本":914484,  "韓國":146865,  "越南":0, "泰國":21174, "馬來西亞":53236, "新加坡":53611,  "菲律賓":30383,  "汶萊":0, "印尼":26670},
+ "1992":{   "日本":825985,  "韓國":153146,  "越南":0, "泰國":23705, "馬來西亞":45536, "新加坡":54943,  "菲律賓":27872,  "汶萊":0, "印尼":23734},
+ "1993":{   "日本":795018,  "韓國":149905,  "越南":0, "泰國":33378, "馬來西亞":51746, "新加坡":56537,  "菲律賓":29802,  "汶萊":0, "印尼":23261},
+ "1994":{   "日本":697916,  "韓國":90809, "越南":0, "泰國":89022, "馬來西亞":56673, "新加坡":52858,  "菲律賓":54247,  "汶萊":0, "印尼":35318},
+ "1995":{   "日本":819290,  "韓國":126930,  "越南":0, "泰國":115199,  "馬來西亞":53881, "新加坡":61346,  "菲律賓":70709,  "汶萊":0, "印尼":40239},
+ "1996":{   "日本":911563,  "韓國":143357,  "越南":0, "泰國":147226,  "馬來西亞":59966, "新加坡":60544,  "菲律賓":90674,  "汶萊":0, "印尼":47564},
+ "1997":{   "日本":918044,  "韓國":124555,  "越南":0, "泰國":121187,  "馬來西亞":62577, "新加坡":66731,  "菲律賓":105997, "汶萊":0, "印尼":51635},
+ "1998":{   "日本":908074,  "韓國":98172, "越南":0, "泰國":122745,  "馬來西亞":61617, "新加坡":68000,  "菲律賓":114666, "汶萊":0, "印尼":55125},
+ "1999":{   "日本":830864,  "韓國":63083, "越南":0, "泰國":129081,  "馬來西亞":56697, "新加坡":71416,  "菲律賓":122806, "汶萊":0, "印尼":49963},
+ "2000":{   "日本":830836,  "韓國":77942, "越南":0, "泰國":138499,  "馬來西亞":60907, "新加坡":69329,  "菲律賓":122215, "汶萊":0, "印尼":79142},
+ "2001":{   "日本":922865,  "韓國":86214, "越南":0, "泰國":133154,  "馬來西亞":67676, "新加坡":77134,  "菲律賓":84847,  "汶萊":0, "印尼":109762},
+ "2002":{   "日本":977705,  "韓國":86408, "越南":0, "泰國":116394,  "馬來西亞":66516, "新加坡":80028,  "菲律賓":70501,  "汶萊":0, "印尼":92076},
+ "2003":{   "日本":991224,  "韓國":84354, "越南":0, "泰國":105412,  "馬來西亞":75659, "新加坡":90487,  "菲律賓":75651,  "汶萊":0, "印尼":89029},
+ "2004":{   "日本":659972,  "韓國":94060, "越南":0, "泰國":98056, "馬來西亞":75869, "新加坡":66629,  "菲律賓":77570,  "汶萊":0, "印尼":39826},
+ "2005":{   "日本":890444,  "韓國":149182,  "越南":0, "泰國":101784,  "馬來西亞":105246,  "新加坡":101379, "菲律賓":84219,  "汶萊":0, "印尼":46713},
+ "2006":{   "日本":1127184, "韓國":184559,  "越南":0, "泰國":92342, "馬來西亞":123961,  "新加坡":146621, "菲律賓":89263,  "汶萊":0, "印尼":91356},
+ "2007":{   "日本":1163835, "韓國":198507,  "越南":0, "泰國":94191, "馬來西亞":132996,  "新加坡":163169, "菲律賓":77596,  "汶萊":0, "印尼":93847},
+ "2008":{   "日本":1170582, "韓國":228582,  "越南":0, "泰國":88947, "馬來西亞":159839,  "新加坡":184303, "菲律賓":82366,  "汶萊":0, "印尼":98692},
+ "2009":{   "日本":1090585, "韓國":252973,  "越南":81274, "泰國":83968, "馬來西亞":171630,  "新加坡":189330, "菲律賓":85466,  "汶萊":1012,  "印尼":113099},
+ "2010":{   "日本":1007618, "韓國":170646,  "越南":68204, "泰國":80712, "馬來西亞":184577,  "新加坡":180819, "菲律賓":78765,  "汶萊":868, "印尼":113038},
+ "2011":{   "日本":1102054, "韓國":223940,  "越南":82134, "泰國":97678, "馬來西亞":311349,  "新加坡":223401, "菲律賓":92525,  "汶萊":1784,  "印尼":133491},
+ "2012":{   "日本":1300022, "韓國":246149,  "越南":95921, "泰國":101088,  "馬來西亞":331744,  "新加坡":273327, "菲律賓":102417, "汶萊":1474,  "印尼":161685},
+ "2013":{   "日本":1443009, "韓國":262340,  "越南":87886, "泰國":95687, "馬來西亞":367817,  "新加坡":297624, "菲律賓":105525, "汶萊":1709,  "印尼":169136},
+ "2014":{   "日本":1434346, "韓國":355473,  "越南":118391,  "泰國":104182,  "馬來西亞":424053,  "新加坡":330293, "菲律賓":101594, "汶萊":1644,  "印尼":176919},
+ "2015":{   "日本":1637264, "韓國":531703,  "越南":135173,  "泰國":102457,  "馬來西亞":464518,  "新加坡":341857, "菲律賓":136998, "汶萊":1968,  "印尼":186558},
+ "2016":{   "日本":1629193, "韓國":662670,  "越南":143930,  "泰國":121337,  "馬來西亞":458401,  "新加坡":354767, "菲律賓":139758, "汶萊":1757,  "印尼":181734},
+ "2017":{   "日本":1896456, "韓國":887412,  "越南":194323,  "泰國":193200,  "馬來西亞":500496,  "新加坡":371663, "菲律賓":171816, "汶萊":2034,  "印尼":192053},
+ "2018":{   "日本":1895546, "韓國":1055207, "越南":380833,  "泰國":289801,  "馬來西亞":552620,  "新加坡":386843, "菲律賓":290303, "汶萊":1841,  "印尼":193813},
+ "2019":{   "日本":1966303, "韓國":1021530, "越南":490699,  "泰國":317086,  "馬來西亞":548947,  "新加坡":389689, "菲律賓":420302, "汶萊":2008,  "印尼":215891},
+ "2020":{   "日本":2162426, "韓國":1245144, "越南":404570,  "泰國":410385,  "馬來西亞":560099,  "新加坡":421121, "菲律賓":510966, "汶萊":2763,  "印尼":234968},
+ "2021":{   "日本":268798,  "韓國":179190,  "越南":110053,  "泰國":63303, "馬來西亞":74788, "新加坡":46225,  "菲律賓":77914,  "汶萊":183, "印尼":56725},
+ "2022":{   "日本":9910,  "韓國":3165,  "越南":24872, "泰國":7534,  "馬來西亞":6188,  "新加坡":2309, "菲律賓":9350, "汶萊":16,  "印尼":14131},
+ "2023":{   "日本":87133, "韓國":51480, "越南":135356,  "泰國":74356, "馬來西亞":60742, "新加坡":66182,  "菲律賓":64490,  "汶萊":104, "印尼":79301},
+ "2024":{   "日本":926140,  "韓國":745885,  "越南":382026,  "泰國":391573,  "馬來西亞":463292,  "新加坡":423063, "菲律賓":352871, "汶萊":2730,  "印尼":206023},
+
+};
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartdiv");
+
+root.numberFormatter.setAll({
+  numberFormat: "#a",
+
+  // Group only into M (millions), and B (billions)
+  bigNumberPrefixes: [
+    { number: 1e6, suffix: "M" },
+    { number: 1e9, suffix: "B" }
+  ],
+
+  // Do not use small number prefixes at all
+  smallNumberPrefixes: []
+});
+
+var stepDuration = 2000;
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([am5themes_Animated.new(root)]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: true,
+  panY: true,
+  wheelX: "none",
+  wheelY: "none",
+  paddingLeft: 0
+}));
+
+
+// We don't want zoom-out button to appear while animating, so we hide it at all
+chart.zoomOutButton.set("forceHidden", true);
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var yRenderer = am5xy.AxisRendererY.new(root, {
+  minGridDistance: 20,
+  inversed: true,
+  minorGridEnabled: true
+});
+// hide grid
+yRenderer.grid.template.set("visible", false);
+
+var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+  maxDeviation: 0,
+  categoryField: "network",
+  renderer: yRenderer
+}));
+
+var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+  maxDeviation: 0,
+  min: 0,
+  strictMinMax: true,
+  extraMax: 0.1,
+  renderer: am5xy.AxisRendererX.new(root, {})
+}));
+
+xAxis.set("interpolationDuration", stepDuration / 10);
+xAxis.set("interpolationEasing", am5.ease.linear);
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+  xAxis: xAxis,
+  yAxis: yAxis,
+  valueXField: "value",
+  categoryYField: "network"
+}));
+
+// Rounded corners for columns
+series.columns.template.setAll({ cornerRadiusBR: 5, cornerRadiusTR: 5 });
+
+// Make each column to be of a different color
+series.columns.template.adapters.add("fill", function (fill, target) {
+  return chart.get("colors").getIndex(series.columns.indexOf(target));
+});
+
+series.columns.template.adapters.add("stroke", function (stroke, target) {
+  return chart.get("colors").getIndex(series.columns.indexOf(target));
+});
+
+// Add label bullet
+series.bullets.push(function () {
+  return am5.Bullet.new(root, {
+    locationX: 1,
+    sprite: am5.Label.new(root, {
+      text: "{valueXWorking.formatNumber('#.# a')}",
+      fill: root.interfaceColors.get("alternativeText"),
+      centerX: am5.p100,
+      centerY: am5.p50,
+      populateText: true
+    })
+  });
+});
+
+var label = chart.plotContainer.children.push(am5.Label.new(root, {
+  text: "2002",
+  fontSize: "8em",
+  opacity: 0.2,
+  x: am5.p100,
+  y: am5.p100,
+  centerY: am5.p100,
+  centerX: am5.p100
+}));
+
+// Get series item by category
+function getSeriesItem(category) {
+  for (var i = 0; i < series.dataItems.length; i++) {
+    var dataItem = series.dataItems[i];
+    if (dataItem.get("categoryY") == category) {
+      return dataItem;
+    }
+  }
+}
+
+// Axis sorting
+function sortCategoryAxis() {
+  // sort by value
+  series.dataItems.sort(function (x, y) {
+    return y.get("valueX") - x.get("valueX"); // descending
+    //return x.get("valueX") - y.get("valueX"); // ascending
+  });
+
+  // go through each axis item
+  am5.array.each(yAxis.dataItems, function (dataItem) {
+    // get corresponding series item
+    var seriesDataItem = getSeriesItem(dataItem.get("category"));
+
+    if (seriesDataItem) {
+      // get index of series data item
+      var index = series.dataItems.indexOf(seriesDataItem);
+      // calculate delta position
+      var deltaPosition =
+        (index - dataItem.get("index", 0)) / series.dataItems.length;
+      // set index to be the same as series data item index
+      if (dataItem.get("index") != index) {
+        dataItem.set("index", index);
+        // set deltaPosition instanlty
+        dataItem.set("deltaPosition", -deltaPosition);
+        // animate delta position to 0
+        dataItem.animate({
+          key: "deltaPosition",
+          to: 0,
+          duration: stepDuration / 2,
+          easing: am5.ease.out(am5.ease.cubic)
+        });
+      }
+    }
+  });
+  // sort axis items by index.
+  // This changes the order instantly, but as deltaPosition is set, they keep in the same places and then animate to true positions.
+  yAxis.dataItems.sort(function (x, y) {
+    return x.get("index") - y.get("index");
+  });
+}
+
+var year = 1966;
+
+// update data with values each 1.5 sec
+var interval = setInterval(function () {
+  year++;
+
+  if (year > 2024) {
+    clearInterval(interval);
+    clearInterval(sortInterval);
+  }
+
+  updateData();
+}, stepDuration);
+
+var sortInterval = setInterval(function () {
+  sortCategoryAxis();
+}, 100);
+
+function setInitialData() {
+  var d = allData[year];
+
+  for (var n in d) {
+    series.data.push({ network: n, value: d[n] });
+    yAxis.data.push({ network: n });
+  }
+}
+
+function updateData() {
+  var itemsWithNonZero = 0;
+
+  if (allData[year]) {
+    label.set("text", year.toString());
+
+    am5.array.each(series.dataItems, function (dataItem) {
+      var category = dataItem.get("categoryY");
+      var value = allData[year][category];
+
+      if (value > 0) {
+        itemsWithNonZero++;
+      }
+
+      dataItem.animate({
+        key: "valueX",
+        to: value,
+        duration: stepDuration,
+        easing: am5.ease.linear
+      });
+      dataItem.animate({
+        key: "valueXWorking",
+        to: value,
+        duration: stepDuration,
+        easing: am5.ease.linear
+      });
+    });
+
+    yAxis.zoom(0, itemsWithNonZero / yAxis.dataItems.length);
+  }
+}
+
+setInitialData();
+setTimeout(function () {
+  year++;
+  updateData();
+}, 50);
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+series.appear(1000);
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>
